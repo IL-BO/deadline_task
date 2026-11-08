@@ -37,3 +37,18 @@ def deadline_score(pass_date: str, deadline_date: str) -> int:
         return 1
     else:
         return 0
+
+
+def late_list(grades: dict[str, str], deadline_date: str) -> list[str]:
+    """Определяет, сколько студентов из определённого списка
+    сдали работу позже намеченного срока, и возвращает список фамилий этих
+    студентов в алфавитном порядке."""
+    late_students = []
+    for student, date in grades.items():
+        try:
+            if deadline_score(date, deadline_date) < 5:
+                late_students.append(student)
+        except ValueError as e:
+            print(f"Пропущен {student}: {e}")
+    late_students.sort()
+    return late_students
