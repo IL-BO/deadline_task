@@ -52,3 +52,24 @@ def late_list(grades: dict[str, str], deadline_date: str) -> list[str]:
             print(f"Пропущен {student}: {e}")
     late_students.sort()
     return late_students
+
+
+def get_surname():
+
+    while True:
+        surname = input("Введите фамилию. В фамилии могут быть только буквы: ").strip()
+        if not surname.isalpha():
+            print("Ошибка! В фамилии могут быть только буквы!")
+            continue
+        return surname
+
+
+def get_date(note: str):
+    while True:
+        date = input(f"{note} (DD.MM.YYYY): ")
+        try:
+            parse_date(date)
+        except ValueError as e:
+            print(f"Ошибка: {e}")
+            continue
+        return date
