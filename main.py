@@ -81,3 +81,61 @@ def print_menu():
     print("2. Вывести список студентов, пропустивших дедлайн")
     print("0. Выход")
     print("---------------------------")
+
+
+def main():
+
+    deadline_date = get_date("Введите дату дедлайна контрольной работы в формате ")
+
+    print(f"Дата дедлайна: {deadline_date} \n")
+    while True:
+        print_menu()
+        try:
+            choice = int(input("Выберите пункт меню: ").strip())
+        except ValueError:
+            print("Ошибка: введите число.")
+            continue
+        if choice == 1:
+            pass_date = get_date("Введите дату сдачи контрольной работы в формате ")
+            print(f"Оценка: {deadline_score(pass_date, deadline_date)}")
+        elif choice == 2:
+            student_data = {}
+            while True:
+                print("\n1 — добавить студента")
+                print("2 — вывести список опоздавших")
+                print("3 — очистить список")
+                print("0 — вернуться в главное меню")
+                try:
+                    sub = int(input("Выберите: ").strip())
+                except ValueError:
+                    print("Ошибка: введите число.")
+                    continue
+
+                if sub == 1:
+                    surname = get_surname()
+                    date = get_date("Введите дату сдачи контрольной работы в формате ")
+                    student_data[surname] = date
+                elif sub == 2:
+                    if student_data:
+                        res = late_list(student_data, deadline_date)
+                        print(f"Колличество опoздавших студентов: {len(res)}")
+                        print(res)
+                    else:
+                        print("Список пуст.")
+                elif sub == 3:
+                    student_data.clear()
+                    print("Список очищен.")
+                elif sub == 0:
+                    break
+                else:
+                    print("Ошибка: введите от 0 до 3!")
+
+        elif choice == 0:
+            print("Программа завершена")
+            break
+        else:
+            print("Ошибка: введите число от 0 до 2!")
+
+
+if __name__ == "__main__":
+    main()
